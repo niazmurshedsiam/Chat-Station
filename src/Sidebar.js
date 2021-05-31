@@ -23,6 +23,10 @@ const Sidebar = () => {
     );
   }, []);
 
+  const addChat = () =>{
+      
+  }
+
   return (
     <div className="sidebar">
       <div className="sidebar_header">
@@ -36,21 +40,13 @@ const Sidebar = () => {
           <input placeholder="Search" />
         </div>
         <IconButton variant="outlined" className="sidebar_inputButton">
-          <RateReviewOutlinedIcon></RateReviewOutlinedIcon>
+          <RateReviewOutlinedIcon onClick={addChat}/>
         </IconButton>
       </div>
       <div className="sidebar_chats">
-        <SidebarChat></SidebarChat>
-        <SidebarChat></SidebarChat>
-        <SidebarChat></SidebarChat>
-        {/* <SidebarChat></SidebarChat>
-                <SidebarChat></SidebarChat>
-                <SidebarChat></SidebarChat>
-                <SidebarChat></SidebarChat>
-                <SidebarChat></SidebarChat>
-                <SidebarChat></SidebarChat>
-                <SidebarChat></SidebarChat>
-                <SidebarChat></SidebarChat> */}
+        {chats.map(({id, data: {chatName}}) => (
+          <SidebarChat key={id} id={id} chatName={chatName}/>
+        ))}
       </div>
     </div>
   );
