@@ -1,16 +1,37 @@
 // import { Chat } from '@material-ui/icons';
-import React from 'react';
-import './App.css';
-import IMessage from './IMessage';
-import Chat from './Chat';
+import React, { useEffect } from "react";
+import "./App.css";
+import IMessage from "./IMessage";
+import Chat from "./Chat";
+import { useDispatch, useSelector } from "react-redux";
+import { selectUser, login, logout } from "./features/counter/userSlice";
+import Login from "./Login";
+import { auth } from "./firebase";
 
 function App() {
-  return (
-    <div className="app">
-      <IMessage></IMessage>
-      
-    </div>
-  );
+  const user = useSelector(selectUser);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    auth.onAuthStateChanged((authUser) => {
+      if (authUser) {
+        //user is logged in
+        dispatch(
+          login({
+            uid: authUser.uid,
+            photo: authUser.photo,
+            email: authUser.email,
+            displayName: authUser.displayName,
+          })
+        );
+      } else {
+        //user is logged out
+        dispatch(logout());
+      }
+    });
+  }, []);
+
+  return <div className="app">{user ? <IMessage /> : <Login />}</div>;
 }
 
 export default App;
