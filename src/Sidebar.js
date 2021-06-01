@@ -5,13 +5,12 @@ import React, { useEffect, useState } from "react";
 import "./Sidebar.css";
 import SidebarChat from "./SidebarChat";
 import { useSelector } from "react-redux";
-import { selectUser } from "./features/counter/userSlice";
+import { selectUser } from "./features/userSlice";
 import db, { auth } from "./firebase";
 
 const Sidebar = () => {
   const user = useSelector(selectUser);
   const [chats, setChats] = useState([]);
-
   useEffect(() => {
     db.collection("chats").onSnapshot((snapshot) =>
       setChats(
@@ -23,9 +22,15 @@ const Sidebar = () => {
     );
   }, []);
 
-  const addChat = () =>{
-      
-  }
+  const addChat = () => {
+    const chatName = prompt("Please Enter a Chat Name");
+
+    if (chatName) {
+      db.collection("chats").add({
+        chatName: chatName,
+      });
+    }
+  };
 
   return (
     <div className="sidebar">
@@ -40,12 +45,13 @@ const Sidebar = () => {
           <input placeholder="Search" />
         </div>
         <IconButton variant="outlined" className="sidebar_inputButton">
-          <RateReviewOutlinedIcon onClick={addChat}/>
+          <RateReviewOutlinedIcon onClick={addChat} />
         </IconButton>
       </div>
       <div className="sidebar_chats">
-        {chats.map(({id, data: {chatName}}) => (
-          <SidebarChat key={id} id={id} chatName={chatName}/>
+        
+        {chats.map(({ id, data: { chatName } }) => (
+          <SidebarChat key={id} id={id} chatName={chatName} />
         ))}
       </div>
     </div>

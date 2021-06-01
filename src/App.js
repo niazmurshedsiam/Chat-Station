@@ -2,9 +2,8 @@
 import React, { useEffect } from "react";
 import "./App.css";
 import IMessage from "./IMessage";
-import Chat from "./Chat";
 import { useDispatch, useSelector } from "react-redux";
-import { selectUser, login, logout } from "./features/counter/userSlice";
+import { selectUser, login, logout } from "./features/userSlice";
 import Login from "./Login";
 import { auth } from "./firebase";
 
