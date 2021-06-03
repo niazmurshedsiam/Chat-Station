@@ -8,7 +8,8 @@
 }
 
 .message > p {
-  background-color: #f3f3f5;
+  background-color: #0A8963;
+  color: white;
   font-size: medium;
   padding: 15px;
   border-radius: 20px;

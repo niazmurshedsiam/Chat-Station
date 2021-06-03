@@ -55,7 +55,7 @@ const Chat = () => {
         <h4>
           To: <span className="chat_name">{chatName}</span>
         </h4>
-        <strong>Detail</strong>
+        <strong style={{color: 'white'}}>Detail</strong>
       </div>
 
       <div className="chat_messages">
